@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Africa's Hidden Treasures | Ancient Empires, Gold & Oil</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--ink:#17251f;--green:#174c3b;--gold:#d59a27;--cream:#f7f4eb;--muted:#64736b}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--cream)}
+header{background:linear-gradient(120deg,#123d32,#24664d);color:white;padding:56px 7vw 48px}
+header .tag{letter-spacing:.14em;text-transform:uppercase;font-size:.76rem;color:#f2cf82;font-weight:700}
+h1{font-size:clamp(2.1rem,5vw,4.2rem);line-height:1.06;max-width:900px;margin:14px 0}
+header p{max-width:760px;color:#e3eee8;font-size:1.1rem}
+nav{display:flex;gap:20px;flex-wrap:wrap;padding:12px 7vw;background:#fff;position:sticky;top:0;z-index:500;box-shadow:0 2px 12px #0001}
+nav a{color:var(--green);font-weight:650;text-decoration:none}
+main{max-width:1120px;margin:auto;padding:30px 22px 70px}
+section{margin:30px 0 44px;scroll-margin-top:80px}
+h2{font-size:1.8rem;color:var(--green);margin-bottom:8px}
+.lead{color:var(--muted);max-width:850px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{background:white;border:1px solid #e7e1d2;border-radius:15px;padding:20px;box-shadow:0 5px 20px #253b2a0b}
+.card h3{margin:0 0 7px;color:#174c3b}
+.era{font-size:.78rem;color:#9b6a11;font-weight:750;text-transform:uppercase;letter-spacing:.06em}
+#map{height:520px;border-radius:16px;border:1px solid #d8d0bd;z-index:1}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0;color:#43564c;font-size:.9rem}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px}
+.gold{background:#d59a27}.oil{background:#2866a4}.history{background:#8a4d9e}.potential{background:#398b78}
+.note{background:#fff6df;border-left:4px solid var(--gold);padding:14px 17px;border-radius:7px}
+table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:12px;border-bottom:1px solid #ece7db;vertical-align:top}
+th{background:#e8efe9;color:#174c3b}
+button{border:0;border-radius:9px;padding:10px 16px;background:var(--green);color:white;font-weight:700;cursor:pointer}
+button.secondary{background:#e8efe9;color:var(--green)}
+input,textarea{width:100%;padding:11px;border:1px solid #cfc9ba;border-radius:9px;font:inherit;margin:6px 0 12px}
+textarea{min-height:90px}
+.comment{background:white;border:1px solid #e7e1d2;border-radius:10px;padding:12px;margin:10px 0}
+small,.muted{color:var(--muted)}
+footer{background:#123d32;color:#e3eee8;padding:28px 7vw}
+footer a{color:#f2cf82}
+@media(max-width:600px){header{padding:40px 22px}#map{height:430px}nav{gap:12px}}
+</style>
+</head>
+<body>
+<header>
+<div class="tag">An educational geography & history project</div>
+<h1>AFRICA'S HIDDEN TREASURES</h1>
+<p>From the ancient Ghana, Mali and Songhai empires to present-day gold deposits, petroleum discoveries and exploration potential.</p>
+<p><strong>Project focus:</strong> West African history • mineral resources • petroleum geology</p>
+</header>
+<nav>
+<a href="#history">The empires</a><a href="#map-section">Interactive map</a><a href="#resources">Resources today</a><a href="#exploration">How discoveries happen</a><a href="#discussion">Discussion</a>
+</nav>
+<main>
+<section id="intro">
+<h2>Introduction</h2>
+<p>West Africa has a long history of trade in gold and salt. The Ghana, Mali and Songhai empires grew around important trade routes and centres in the Sahel. Today, parts of West Africa are also known for significant gold deposits and petroleum resources. Studying them together shows how geography and natural resources have influenced the region across time.</p>
+<div class="note"><strong>Important distinction:</strong> The medieval Ghana Empire was centred mainly in areas of present-day southeastern Mauritania and western Mali. It was not located in the same territory as the modern Republic of Ghana, which adopted the historic name at independence in 1957.</div>
+</section>
+<section id="history">
+<h2>1. The three historic empires</h2>
+<div class="cards">
+<article class="card"><div class="era">c. 6th–13th centuries</div><h3>Ghana Empire</h3><p>Centred around the western Sahel, with its royal centre commonly associated with Koumbi Saleh. Its rulers gained wealth through taxing and protecting trans-Saharan trade, especially gold and salt.</p><p><strong>Modern geography:</strong> mainly southeastern Mauritania and western Mali.</p></article>
+<article class="card"><div class="era">c. 1235–1600</div><h3>Mali Empire</h3><p>Founded by Sundiata Keita. It expanded across a large part of the western Sahel. Mansa Musa became famous for Mali's wealth, while Timbuktu and Djenné developed as important centres of trade and learning.</p><p><strong>Modern geography:</strong> mainly Mali, with territories at different times extending into neighbouring countries.</p></article>
+<article class="card"><div class="era">c. 15th–16th centuries</div><h3>Songhai Empire</h3><p>Grew around Gao and the middle Niger River. Sonni Ali expanded the empire, and Askia Muhammad strengthened its administration, scholarship and trade. It became one of the largest states in West African history.</p><p><strong>Modern geography:</strong> mainly Mali and parts of neighbouring Sahel countries at its height.</p></article>
+</div>
+</section>
+<section id="map-section">
+<h2>2. Interactive map: history and resources</h2>
+<p class="lead">Select a marker to read about a historical centre, a known gold-producing area or a petroleum discovery. Markers are illustrative locations, not exact deposit boundaries.</p>
+<div class="legend"><span><i class="dot history"></i>Historic centres</span><span><i class="dot gold"></i>Gold areas</span><span><i class="dot oil"></i>Petroleum discoveries / fields</span><span><i class="dot potential"></i>Exploration basin / potential</span></div>
+<div id="map" role="application" aria-label="Interactive map of West Africa showing historical centres and resource locations"></div>
+</section>
+<section id="resources">
+<h2>3. Gold and crude oil in present-day Africa</h2>
+<h3>Gold</h3>
+<p>Gold remains an important resource in the West African region. Ghana, Mali and Burkina Faso are established gold-producing countries. Important gold districts also occur in Mauritania, Guinea, Côte d’Ivoire and Senegal. The Birimian geological belts of West Africa host many gold deposits.</p>
+<h3>Crude oil and natural gas</h3>
+<p>Petroleum is found in sedimentary basins, including offshore areas along the Atlantic coast. Ghana has producing offshore fields in the Tano/Cape Three Points Basin. Mauritania and Senegal have developed the Greater Tortue Ahmeyim offshore gas project. Namibia, Kenya, Uganda and Mozambique are among countries with significant hydrocarbon discoveries or development activity, although not every discovery is crude oil and not every discovery is producing.</p>
+<table>
+<thead><tr><th>Country / region</th><th>Resource example</th><th>How to describe it accurately</th></tr></thead>
+<tbody>
+<tr><td>Ghana</td><td>Gold; offshore oil and gas</td><td>Established gold producer and offshore petroleum producer.</td></tr>
+<tr><td>Mali</td><td>Gold</td><td>Major gold-producing country.</td></tr>
+<tr><td>Burkina Faso</td><td>Gold</td><td>Important gold producer.</td></tr>
+<tr><td>Mauritania</td><td>Gold; offshore gas and past oil production</td><td>Gold mining; Chinguetti was an oil field, while offshore gas is important.</td></tr>
+<tr><td>Senegal</td><td>Gold; offshore oil and gas</td><td>Gold mining and recent offshore petroleum developments.</td></tr>
+<tr><td>Namibia</td><td>Offshore oil discoveries and exploration</td><td>Promising discoveries; commercial production status must be checked against current updates.</td></tr>
+<tr><td>Nigeria</td><td>Crude oil and natural gas</td><td>Long-established major petroleum producer.</td></tr>
+</tbody></table>
+<p class="note"><strong>Key lesson:</strong> A geological possibility is not the same as a confirmed discovery. A discovery is not automatically a commercially producing field. More geological surveys, seismic studies, exploratory drilling and economic evaluation are needed.</p>
+</section>
+<section id="exploration">
+<h2>4. How geologists investigate possible resources</h2>
+<div class="cards">
+<div class="card"><h3>1. Geological mapping</h3><p>Scientists study rock types, structures and the geological history of an area.</p></div>
+<div class="card"><h3>2. Geophysical surveys</h3><p>Methods such as seismic surveys help image underground rock layers and structures.</p></div>
+<div class="card"><h3>3. Geochemical studies</h3><p>Rock, soil and other samples are analysed for chemical clues that may indicate mineralisation or petroleum systems.</p></div>
+<div class="card"><h3>4. Exploration drilling</h3><p>Where evidence supports a target, licensed specialists drill and analyse samples to test what is underground.</p></div>
+<div class="card"><h3>5. Evaluation</h3><p>Experts estimate the size, quality, technical difficulty and environmental and economic feasibility of a resource.</p></div>
+</div>
+</section>
+<section id="conclusion">
+<h2>5. Conclusion</h2>
+<p>The Ghana, Mali and Songhai empires demonstrate the historic importance of West Africa's trade networks and gold wealth. Modern geological knowledge shows that the region continues to contain valuable mineral resources, while sedimentary basins across Africa have yielded petroleum discoveries and further exploration opportunities. Responsible exploration, environmental protection, good governance and benefits for local communities are essential if these resources are to support sustainable development.</p>
+</section>
+<section id="discussion">
+<h2>6. Comments and likes</h2>
+<p class="lead">Share a question or a thought about the project. This preview stores comments and likes only in this browser; it does not publish them to a public website or share them with classmates.</p>
+<button id="likeBtn" type="button">♡ Like <span id="likeCount">0</span></button>
+<form id="commentForm"><label for="commentName">Your name (optional)</label><input id="commentName" maxlength="40" placeholder="Enter your name"><label for="commentText">Your comment</label><textarea id="commentText" maxlength="500" required placeholder="What did you learn or find interesting?"></textarea><button type="submit">Add comment</button></form>
+<div id="comments" aria-live="polite"></div>
+</section>
+<section id="sources">
+<h2>Sources for further reading</h2>
+<ul>
+<li><a href="https://openstax.org/books/world-history-volume-1/pages/15-2-medieval-sub-saharan-africa" target="_blank" rel="noopener">OpenStax — Medieval Sub-Saharan Africa</a></li>
+<li><a href="https://www.britishmuseum.org/sites/default/files/2024-04/African_Kingdoms_Timeline.pdf" target="_blank" rel="noopener">British Museum — African Kingdoms Timeline</a></li>
+<li><a href="https://www.usgs.gov/centers/national-minerals-information-center/ghana" target="_blank" rel="noopener">U.S. Geological Survey — Ghana minerals</a></li>
+<li><a href="https://www.usgs.gov/centers/national-minerals-information-center/mali" target="_blank" rel="noopener">U.S. Geological Survey — Mali minerals</a></li>
+<li><a href="https://www.usgs.gov/centers/national-minerals-information-center/burkina-faso" target="_blank" rel="noopener">U.S. Geological Survey — Burkina Faso minerals</a></li>
+<li><a href="https://www.eia.gov/international/content/analysis/special_topics/emerging_hydrocarbon_producers_in_africa/pdf/emerging-africa-2023.pdf" target="_blank" rel="noopener">U.S. Energy Information Administration — Emerging Hydrocarbon Producers in Africa</a></li>
+<li><a href="https://petrocom.gov.gh/exploration-history/" target="_blank" rel="noopener">Petroleum Commission Ghana — Exploration history</a></li>
+</ul>
+<p><small>Prepared as an educational project. Resource markers are approximate and should not be interpreted as official licence boundaries, reserves maps or proof of undiscovered deposits.</small></p>
+</section>
+</main>
+<footer><strong>AFRICA'S HIDDEN TREASURES</strong><br>History • Geography • Geology • Petroleum exploration</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map=L.map('map').setView([12.5,-4.5],4);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+const groups={
+history:L.layerGroup().addTo(map),gold:L.layerGroup().addTo(map),oil:L.layerGroup().addTo(map),potential:L.layerGroup().addTo(map)
+};
+const colors={history:'#8a4d9e',gold:'#d59a27',oil:'#2866a4',potential:'#398b78'};
+function pin(type,lat,lon,title,detail){
+ L.circleMarker([lat,lon],{radius:8,color:'#fff',weight:2,fillColor:colors[type],fillOpacity:1})
+ .bindPopup('<strong>'+title+'</strong><br>'+detail).addTo(groups[type]);
+}
+pin('history',16.6,-7.0,'Koumbi Saleh (approximate)','Historic centre commonly associated with the Ghana Empire.');
+pin('history',13.0,-8.0,'Niani region (approximate)','Associated with the Mali Empire’s early royal centre; exact archaeological identification is debated.');
+pin('history',16.77,-3.0,'Timbuktu','Major trading and learning centre under Mali and Songhai.');
+pin('history',16.27,-0.04,'Gao','Important city and capital of the Songhai Empire.');
+pin('gold',6.2,-1.67,'Obuasi, Ghana','One of Ghana’s well-known gold-mining areas.');
+pin('gold',5.3,-1.99,'Tarkwa, Ghana','Important gold-mining district in southwestern Ghana.');
+pin('gold',14.4,-11.4,'Kayes region, Mali','Gold-producing region in western Mali.');
+pin('gold',20.2,-15.0,'Tasiast region, Mauritania','Major gold mine area; marker is approximate.');
+pin('oil',4.8,-2.6,'Jubilee area, offshore Ghana','Offshore oil and gas field area; marker is approximate.');
+pin('oil',17.0,-16.5,'Greater Tortue Ahmeyim area','Offshore natural gas project near the Mauritania–Senegal maritime boundary; not a crude-oil field.');
+pin('potential',8.5,0.5,'Voltaian Basin, Ghana','An onshore sedimentary basin being studied for petroleum potential; potential does not mean a commercial discovery.');
+pin('potential',-20.5,12.0,'Namibian offshore basins','Offshore discoveries and continuing exploration; production status and project timelines require current verification.');
+const overlays={'Historic centres':groups.history,'Gold areas':groups.gold,'Petroleum fields / discoveries':groups.oil,'Exploration potential':groups.potential};
+L.control.layers(null,overlays,{collapsed:false}).addTo(map);
+const likeBtn=document.getElementById('likeBtn'), likeCount=document.getElementById('likeCount');
+let liked=false,count=0;
+likeBtn.addEventListener('click',()=>{liked=!liked;count=Math.max(0,count+(liked?1:-1));likeCount.textContent=count;likeBtn.firstChild.textContent=liked?'♥ Unlike ':'♡ Like ';});
+const form=document.getElementById('commentForm'), comments=document.getElementById('comments');
+form.addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('commentName').value.trim()||'Visitor';const body=document.getElementById('commentText').value.trim();if(!body)return;const div=document.createElement('div');div.className='comment';const strong=document.createElement('strong');strong.textContent=name;const p=document.createElement('p');p.textContent=body;div.append(strong,p);comments.prepend(div);form.reset();});
+</script>
+</body>
+</html>
